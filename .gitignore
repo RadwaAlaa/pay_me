@@ -22,3 +22,8 @@ rad.json
 TestResults.xml
 /build
 /.dart_tool/flutter_build
+macos/Flutter/GeneratedPluginRegistrant.swift
+ios/Flutter/Debug.xcconfig
+ios/Flutter/Release.xcconfig
+windows/flutter/generated_plugins.cmake
+windows/flutter/generated_plugin_registrant.cc

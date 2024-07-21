@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pay_me/Modules/Home/home_page.dart';
+import 'package:pay_me/Modules/Home/views/screens/home_page.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -39,7 +39,7 @@ class LandingPageState extends State<LandingPage> {
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                "Pay me",
+                "PayFlex",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 22,
