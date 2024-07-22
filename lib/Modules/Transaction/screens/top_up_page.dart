@@ -126,7 +126,8 @@ class TopUpPageState extends State<TopUpPage> {
                                     showAlert(
                                         context,
                                         "Error",
-                                        "Insufficient balance, please top up your account",
+                                        state.error ??
+                                            "Insufficient balance in your account",
                                         false);
                                     return;
                                   }

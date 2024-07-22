@@ -18,17 +18,22 @@ class HomeCubit extends Cubit<HomeState> {
     getUser();
   }
   Future<List<BeneficiaryModel>> getUserBeneficiaries(String userID) async {
-    emit(state.copyWith(isLoadingBeneficiaries: true));
+    try {
+      emit(state.copyWith(isLoadingBeneficiaries: true));
 
-    var beneficiaries =
-        await beneficiaryRepository.getUserBeneficiaries(userID);
+      var beneficiaries =
+          await beneficiaryRepository.getUserBeneficiaries(userID);
 
-    emit(state.copyWith(
-      beneficiaryList: beneficiaries,
-      isLoadingBeneficiaries: false,
-      selectedView: ToggleView.recharge,
-    ));
-    return beneficiaries;
+      emit(state.copyWith(
+        beneficiaryList: beneficiaries,
+        isLoadingBeneficiaries: false,
+        selectedView: ToggleView.recharge,
+      ));
+      return beneficiaries;
+    } catch (e) {
+      emit(state.copyWith(isLoadingBeneficiaries: false, error: e.toString()));
+    }
+    return [];
   }
 
   getUser() async {
@@ -42,23 +47,39 @@ class HomeCubit extends Cubit<HomeState> {
         getUserBeneficiaries(user.id!);
       });
     } catch (e) {
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, error: e.toString()));
     }
   }
 
   addBeneficiary(BeneficiaryModel beneficiary) async {
     // call post api to create this beneficiary to the user.
-    beneficiary.userId = state.user!.id;
-    beneficiaryRepository.addBeneficiary(beneficiary);
-    getUserBeneficiaries(state.user!.id!);
+    try {
+      beneficiary.userId = state.user!.id;
+      beneficiaryRepository.addBeneficiary(beneficiary);
+      getUserBeneficiaries(state.user!.id!);
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, error: e.toString()));
+    }
   }
 
   void getRechargeHistory() async {
-    var transactionRepo = TransactionRepository();
-    var result =
-        await transactionRepo.getUserTransactionsByUserId(state.user!.id!);
+    var result = <TransactionModel>[];
 
-    emit(state.copyWith(
-        selectedView: ToggleView.history, transactionList: result));
+    try {
+      emit(state.copyWith(isLoadingBeneficiaries: true));
+      var transactionRepo = TransactionRepository();
+      result =
+          await transactionRepo.getUserTransactionsByUserId(state.user!.id!);
+      emit(state.copyWith(
+          isLoadingBeneficiaries: false,
+          selectedView: ToggleView.history,
+          transactionList: result));
+    } catch (e) {
+      emit(state.copyWith(
+          error: e.toString(),
+          isLoadingBeneficiaries: false,
+          selectedView: ToggleView.history,
+          transactionList: []));
+    }
   }
 }

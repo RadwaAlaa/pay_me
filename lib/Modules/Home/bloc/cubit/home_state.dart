@@ -10,6 +10,7 @@ class HomeState extends Equatable {
   final bool? isLoadingHistory;
   final bool? isLoadingBeneficiaries;
   final List<TransactionModel>? transactionList;
+  final String? error;
 
   const HomeState({
     this.isLoading = false,
@@ -19,6 +20,7 @@ class HomeState extends Equatable {
     this.isLoadingHistory = false,
     this.isLoadingBeneficiaries = false,
     this.transactionList,
+    this.error,
   });
   @override
   List<Object?> get props => [
@@ -29,6 +31,7 @@ class HomeState extends Equatable {
         isLoadingHistory,
         isLoadingBeneficiaries,
         transactionList,
+        error
       ];
 
   HomeState copyWith({
@@ -39,6 +42,7 @@ class HomeState extends Equatable {
     bool? isLoadingHistory,
     bool? isLoadingBeneficiaries,
     List<TransactionModel>? transactionList,
+    String? error,
   }) {
     return HomeState(
         isLoading: isLoading ?? this.isLoading,
@@ -48,6 +52,7 @@ class HomeState extends Equatable {
         isLoadingHistory: isLoadingHistory ?? this.isLoadingHistory,
         isLoadingBeneficiaries:
             isLoadingBeneficiaries ?? this.isLoadingBeneficiaries,
-        transactionList: transactionList);
+        transactionList: transactionList,
+        error: error);
   }
 }

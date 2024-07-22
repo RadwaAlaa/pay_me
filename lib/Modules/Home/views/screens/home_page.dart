@@ -29,31 +29,20 @@ class HomePageState extends State<HomePage> {
             HomeCubit(const UserRepository(), BeneficiaryRepository()),
         child: Scaffold(
             backgroundColor: AppColors.white,
-            // appBar: AppBar(
-            //   backgroundColor: AppColors.primary,
-            //   shadowColor: Colors.black,
-            //   automaticallyImplyLeading: false,
-            //   title:
-            //       BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-            //     String title = "Welcome ";
-            //     if (state.user != null && state.user!.name != null) {
-            //       title += state.user!.name!;
-            //     }
-            //     return Text(title,
-            //         style: const TextStyle(
-            //             fontStyle: FontStyle.italic,
-            //             fontWeight: FontWeight.w700,
-            //             fontSize: 24,
-            //             color: AppColors.white));
-            //   }),
-            //   centerTitle: false,
-            // ),
             body: SafeArea(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BlocBuilder<HomeCubit, HomeState>(
-                        builder: (context, state) {
+                    BlocConsumer<HomeCubit, HomeState>(
+                        listener: (context, state) {
+                      if (state.error != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(state.error ?? 'Error!'),
+                          ),
+                        );
+                      }
+                    }, builder: (context, state) {
                       var bloc = BlocProvider.of<HomeCubit>(context);
                       if (state.isLoading == true) {
                         return const Padding(
@@ -270,7 +259,7 @@ class AddNewButton extends StatelessWidget {
               ),
             );
           } else {
-            showBottomSheet(
+            showModalBottomSheet(
               backgroundColor: AppColors.white,
               context: context,
               builder: (context) {
