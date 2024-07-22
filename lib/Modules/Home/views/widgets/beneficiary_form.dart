@@ -97,6 +97,7 @@ class BenefeciaryFormState extends State<BenefeciaryForm> {
                       id: DateTime.now().toString(),
                       name: _nameController.text,
                       mobile: _phoneController.text,
+                      credit: 0.0,
                     );
                     widget.onSubmit(newBen);
                   },

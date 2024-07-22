@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pay_me/Modules/Beneficiary/model/beneficiary_model.dart';
@@ -16,35 +15,27 @@ class HomeCubit extends Cubit<HomeState> {
       : super(const HomeState()) {
     getUser();
   }
-  Future<void> getUserBeneficiaries(String userID) async {
-    await beneficiaryRepository
-        .getUserBeneficiaries(userID)
-        .then((beneficiaries) {
-      emit(state.copyWith(
-        beneficiaryList: beneficiaries,
-        isLoading: false,
-      ));
-    });
+  Future<List<BeneficiaryModel>> getUserBeneficiaries(String userID) async {
+    var beneficiaries =
+        await beneficiaryRepository.getUserBeneficiaries(userID);
+
+    emit(state.copyWith(
+      beneficiaryList: beneficiaries,
+      isLoading: false,
+    ));
+    return beneficiaries;
   }
 
   getUser() async {
     try {
       emit(const HomeState(isLoading: true));
-      // var db = FirebaseFirestore.instance;
-      // await db.collection("users").get().then((event) {
-      //   var user = UserModel.fromJson(event.docs.first.data());
-      userRepository.getUser().then((user) {
-        getUserBeneficiaries(user.id!);
+      userRepository.getUser().then((user) async {
+        await getUserBeneficiaries(user.id!);
         emit(state.copyWith(
           user: user,
           isLoading: false,
         ));
       });
-      // var user = await userRepository.getUser();
-      // emit(state.copyWith(
-      //   user: user, isLoading: false,
-      //   //beneficiaryList: user.beneficiaryList
-      // ));
     } catch (e) {
       emit(state.copyWith(isLoading: false));
     }
@@ -53,14 +44,7 @@ class HomeCubit extends Cubit<HomeState> {
   addBeneficiary(BeneficiaryModel beneficiary) async {
     // call post api to create this beneficiary to the user.
     beneficiary.userId = state.user!.id;
-    var db = FirebaseFirestore.instance;
-    await db
-        .collection("beneficiaries")
-        .add(BeneficiaryModel.toJson(beneficiary));
-
-    List<BeneficiaryModel> beneficiaryList = state.beneficiaryList ?? [];
-    beneficiaryList.add(beneficiary);
-    emit(state.copyWith(beneficiaryList: []));
-    emit(state.copyWith(beneficiaryList: beneficiaryList));
+    beneficiaryRepository.addBeneficiary(beneficiary);
+    getUserBeneficiaries(state.user!.id!);
   }
 }

@@ -60,12 +60,16 @@ class SubmitButton extends StatelessWidget {
   final Function onTap;
   final double? height;
   final double? width;
+  final double? fontsize;
+  final bool? isDisabled;
 
   const SubmitButton({
     required this.text,
     required this.onTap,
     this.height,
     this.width,
+    this.fontsize,
+    this.isDisabled,
     super.key,
   });
 
@@ -84,7 +88,9 @@ class SubmitButton extends StatelessWidget {
         width: width,
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
         decoration: BoxDecoration(
-          color: const Color(0xff1F3A93),
+          color: isDisabled == true
+              ? const Color(0xffD3D3D3)
+              : const Color(0xff1F3A93),
           borderRadius: BorderRadius.circular(18.0),
           boxShadow: const [
             BoxShadow(
@@ -96,9 +102,9 @@ class SubmitButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: const TextStyle(
+          style: TextStyle(
               color: Colors.white, // White Text
-              fontSize: 12.0,
+              fontSize: fontsize ?? 12.0,
               fontWeight: FontWeight.w700),
         ),
       ),

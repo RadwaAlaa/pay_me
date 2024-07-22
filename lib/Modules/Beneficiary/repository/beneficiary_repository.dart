@@ -15,15 +15,18 @@ class BeneficiaryRepository extends IBeneficiaryRepository {
   @override
   Future<List<BeneficiaryModel>> getUserBeneficiaries(String userId) async {
     var db = FirebaseFirestore.instance;
-    await db.collection("beneficiaries").get().then((event) {
-      var docs = event.docs;
-      var beneficiaries = docs
-          .map((e) => BeneficiaryModel.fromJson(e.data()))
-          .toList()
-          .where((element) => element.userId == userId)
-          .toList();
+    var result = await db.collection("beneficiaries").get();
+    var docs = result.docs;
+
+    var beneficiaries = docs
+        .map((e) => BeneficiaryModel.fromJson(e.data()))
+        .toList()
+        .where((element) => element.userId == userId)
+        .toList();
+    if (beneficiaries.isNotEmpty) {
       return beneficiaries;
-    });
-    return [];
+    } else {
+      return [];
+    }
   }
 }

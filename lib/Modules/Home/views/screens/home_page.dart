@@ -4,6 +4,7 @@ import 'package:pay_me/Modules/Beneficiary/repository/beneficiary_repository.dar
 import 'package:pay_me/Modules/Home/bloc/cubit/home_cubit.dart';
 import 'package:pay_me/Modules/Home/views/widgets/benefeciary_card.dart';
 import 'package:pay_me/Modules/Home/views/widgets/beneficiary_form.dart';
+import 'package:pay_me/Modules/Transaction/screens/top_up_page.dart';
 import 'package:pay_me/Modules/User/repository/user_repository.dart';
 
 class HomePage extends StatefulWidget {
@@ -59,6 +60,11 @@ class HomePageState extends State<HomePage> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text('Balance: ${state.user!.balance}',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: Color(0xffFFD700))),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Row(
@@ -114,7 +120,19 @@ class HomePageState extends State<HomePage> {
                             return Row(
                               children: [
                                 BenefeciaryCard(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => TopUpPage(
+                                                user: state.user,
+                                                beneficiary: state
+                                                    .beneficiaryList![index],
+                                              )),
+                                    ).then((val) {
+                                      bloc.getUser();
+                                    });
+                                  },
                                   beneficiary: state.beneficiaryList![index],
                                 ),
                               ],
