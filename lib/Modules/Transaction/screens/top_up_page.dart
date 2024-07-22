@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pay_me/Core/app_colors.dart';
 import 'package:pay_me/Modules/Beneficiary/model/beneficiary_model.dart';
 import 'package:pay_me/Modules/Beneficiary/repository/beneficiary_repository.dart';
 import 'package:pay_me/Modules/Home/views/widgets/benefeciary_card.dart';
@@ -36,7 +38,7 @@ class TopUpPageState extends State<TopUpPage> {
             ),
         child: Scaffold(
             appBar: AppBar(
-              backgroundColor: const Color(0xff1F3A93),
+              backgroundColor: AppColors.primary,
               shadowColor: Colors.black,
               automaticallyImplyLeading: true,
               title: const Text('Top up',
@@ -44,7 +46,7 @@ class TopUpPageState extends State<TopUpPage> {
                       fontStyle: FontStyle.italic,
                       fontWeight: FontWeight.w700,
                       fontSize: 24,
-                      color: Color(0xffFFD700))),
+                      color: AppColors.white)),
               centerTitle: false,
             ),
             body: Padding(
@@ -91,8 +93,8 @@ class TopUpPageState extends State<TopUpPage> {
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: rechargeAmounts[index] ==
                                             state.selectedAmount
-                                        ? const Color(0xff1F3A93)
-                                        : const Color(0xff3A7BD5),
+                                        ? AppColors.primary
+                                        : AppColors.secondary,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15.0),
                                     ),
@@ -120,17 +122,57 @@ class TopUpPageState extends State<TopUpPage> {
                               onTap: () async {
                                 if (state.selectedAmount != null ||
                                     state.isLoading == true) {
+                                  if (widget.user!.balance <
+                                      (state.selectedAmount! + 1)) {
+                                    showAlert(
+                                        context,
+                                        "Error",
+                                        "Insufficient balance, please top up your account",
+                                        false);
+                                    return;
+                                  }
                                   var result = await context
                                       .read<TransactionCubit>()
                                       .topUp(widget.beneficiary, widget.user!);
                                   if (result == true && mounted) {
                                     // ignore: use_build_context_synchronously
-                                    Navigator.pop(context);
+                                    showAlert(context, "Successful",
+                                        "Payment was successful", true);
                                   }
                                 }
                               }),
                         );
                       })
                     ]))));
+  }
+
+  Future<dynamic> showAlert(
+      BuildContext context, String title, String message, bool isSuccess) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                Icon(isSuccess ? Icons.check_circle : Icons.error,
+                    color: isSuccess ? Colors.green : Colors.red),
+                const SizedBox(width: 10),
+                Text(title),
+              ],
+            ),
+            content: Text(message),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  if (isSuccess) {
+                    Navigator.of(context).pop();
+                  }
+                },
+              ),
+            ],
+          );
+        });
   }
 }
