@@ -36,9 +36,9 @@ class TransactionRepository implements ITransactionRepository {
 
     List<TransactionModel> list = [];
     for (var doc in result.docs) {
-      var model = TransactionModel.fromJson(doc);
+      var model = TransactionModel.fromJson(doc.data());
       if (model.userId == userId) {
-        list.add(TransactionModel.fromJson(doc));
+        list.add(model);
       }
     }
     return list;

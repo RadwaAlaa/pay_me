@@ -9,14 +9,17 @@ class HomeState extends Equatable {
   final ToggleView selectedView;
   final bool? isLoadingHistory;
   final bool? isLoadingBeneficiaries;
+  final List<TransactionModel>? transactionList;
 
-  const HomeState(
-      {this.isLoading = false,
-      this.user,
-      this.beneficiaryList,
-      this.selectedView = ToggleView.recharge,
-      this.isLoadingHistory = false,
-      this.isLoadingBeneficiaries = false});
+  const HomeState({
+    this.isLoading = false,
+    this.user,
+    this.beneficiaryList,
+    this.selectedView = ToggleView.recharge,
+    this.isLoadingHistory = false,
+    this.isLoadingBeneficiaries = false,
+    this.transactionList,
+  });
   @override
   List<Object?> get props => [
         isLoading,
@@ -24,7 +27,8 @@ class HomeState extends Equatable {
         beneficiaryList,
         selectedView,
         isLoadingHistory,
-        isLoadingBeneficiaries
+        isLoadingBeneficiaries,
+        transactionList,
       ];
 
   HomeState copyWith({
@@ -34,6 +38,7 @@ class HomeState extends Equatable {
     ToggleView selectedView = ToggleView.recharge,
     bool? isLoadingHistory,
     bool? isLoadingBeneficiaries,
+    List<TransactionModel>? transactionList,
   }) {
     return HomeState(
         isLoading: isLoading ?? this.isLoading,
@@ -42,6 +47,7 @@ class HomeState extends Equatable {
         selectedView: selectedView,
         isLoadingHistory: isLoadingHistory ?? this.isLoadingHistory,
         isLoadingBeneficiaries:
-            isLoadingBeneficiaries ?? this.isLoadingBeneficiaries);
+            isLoadingBeneficiaries ?? this.isLoadingBeneficiaries,
+        transactionList: transactionList);
   }
 }

@@ -30,6 +30,7 @@ class TransactionCubit extends Cubit<TransactionState> {
       await transactionRepository.createTransaction(TransactionModel(
           amount: state.selectedAmount!,
           benefeciaryId: beneficiary.id,
+          beneficiaryName: beneficiary.name,
           userId: user.id,
           createdAt: DateTime.now(),
           id: DateTime.now().toString()));
@@ -40,6 +41,5 @@ class TransactionCubit extends Cubit<TransactionState> {
       emit(state.copyWith(isLoading: false, isTransactionSuccess: false));
       return false;
     }
-    return false;
   }
 }

@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pay_me/Modules/Beneficiary/model/beneficiary_model.dart';
 import 'package:pay_me/Modules/Beneficiary/repository/beneficiary_repository.dart';
+import 'package:pay_me/Modules/Transaction/model/transaction_model.dart';
+import 'package:pay_me/Modules/Transaction/repository/transaction_repository.dart';
 import 'package:pay_me/Modules/User/model/user_model.dart';
 import 'package:pay_me/Modules/User/repository/user_repository.dart';
 
@@ -51,8 +53,12 @@ class HomeCubit extends Cubit<HomeState> {
     getUserBeneficiaries(state.user!.id!);
   }
 
-  void getRechargeHistory() {
-    emit(state.copyWith(selectedView: ToggleView.history));
-    return null;
+  void getRechargeHistory() async {
+    var transactionRepo = TransactionRepository();
+    var result =
+        await transactionRepo.getUserTransactionsByUserId(state.user!.id!);
+
+    emit(state.copyWith(
+        selectedView: ToggleView.history, transactionList: result));
   }
 }

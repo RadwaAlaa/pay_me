@@ -1,6 +1,7 @@
 class TransactionModel {
   final String? id;
   final String? benefeciaryId;
+  final String? beneficiaryName;
   final String? userId;
   final DateTime? createdAt;
   final double amount;
@@ -8,26 +9,31 @@ class TransactionModel {
   TransactionModel(
       {this.id,
       required this.benefeciaryId,
+      this.beneficiaryName,
       this.userId,
       this.createdAt,
       this.amount = 0.0});
 
-  factory TransactionModel.fromJson(Map<String, dynamic> json) =>
-      TransactionModel(
-        id: json['id'] ?? '',
-        benefeciaryId: json['beneficiary_id'] ?? '',
-        userId: json['user_id'] ?? '',
-        createdAt: json['created_at'] != null
-            ? DateTime.parse(json['created_at'])
-            : DateTime.now(),
-        amount: json['amount'] ?? 0.0,
-      );
-
-  static Map<String, dynamic> toJson(TransactionModel transaction) => {
-        'id': transaction.id,
-        'beneficiary_id': transaction.benefeciaryId,
-        'user_id': transaction.userId,
-        'created_at': transaction.createdAt,
-        'amount': transaction.amount,
-      };
+  factory TransactionModel.fromJson(Map<String, dynamic> json) {
+    return TransactionModel(
+      id: json['id'] ?? '',
+      benefeciaryId: json['beneficiary_id'] ?? '',
+      userId: json['user_id'] ?? '',
+      beneficiaryName: json['beneficiary_name'] ?? '',
+      createdAt: json['created_at'] != null
+          ? json['created_at'].toDate()
+          : DateTime.now(),
+      amount: json['amount'] ?? 0.0,
+    );
+  }
+  static Map<String, dynamic> toJson(TransactionModel transaction) {
+    return {
+      'id': transaction.id,
+      'beneficiary_id': transaction.benefeciaryId,
+      'user_id': transaction.userId,
+      'created_at': transaction.createdAt,
+      'amount': transaction.amount,
+      'beneficiary_name': transaction.beneficiaryName
+    };
+  }
 }
