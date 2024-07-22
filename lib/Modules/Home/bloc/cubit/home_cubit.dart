@@ -16,12 +16,15 @@ class HomeCubit extends Cubit<HomeState> {
     getUser();
   }
   Future<List<BeneficiaryModel>> getUserBeneficiaries(String userID) async {
+    emit(state.copyWith(isLoadingBeneficiaries: true));
+
     var beneficiaries =
         await beneficiaryRepository.getUserBeneficiaries(userID);
 
     emit(state.copyWith(
       beneficiaryList: beneficiaries,
-      isLoading: false,
+      isLoadingBeneficiaries: false,
+      selectedView: ToggleView.recharge,
     ));
     return beneficiaries;
   }
@@ -30,11 +33,11 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       emit(const HomeState(isLoading: true));
       userRepository.getUser().then((user) async {
-        await getUserBeneficiaries(user.id!);
         emit(state.copyWith(
           user: user,
           isLoading: false,
         ));
+        getUserBeneficiaries(user.id!);
       });
     } catch (e) {
       emit(state.copyWith(isLoading: false));
@@ -46,5 +49,10 @@ class HomeCubit extends Cubit<HomeState> {
     beneficiary.userId = state.user!.id;
     beneficiaryRepository.addBeneficiary(beneficiary);
     getUserBeneficiaries(state.user!.id!);
+  }
+
+  void getRechargeHistory() {
+    emit(state.copyWith(selectedView: ToggleView.history));
+    return null;
   }
 }

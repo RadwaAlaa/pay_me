@@ -25,6 +25,8 @@ class TransactionCubit extends Cubit<TransactionState> {
   Future<bool> topUp(BeneficiaryModel beneficiary, UserModel user) async {
     try {
       emit(state.copyWith(isLoading: true));
+      await userRepository.updateBalance(state.selectedAmount!, user);
+
       await transactionRepository.createTransaction(TransactionModel(
           amount: state.selectedAmount!,
           benefeciaryId: beneficiary.id,
@@ -32,7 +34,6 @@ class TransactionCubit extends Cubit<TransactionState> {
           createdAt: DateTime.now(),
           id: DateTime.now().toString()));
 
-      userRepository.updateBalance(state.selectedAmount!, user);
       emit(state.copyWith(isLoading: false, isTransactionSuccess: true));
       return true;
     } catch (e) {

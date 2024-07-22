@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_me/Core/app_colors.dart';
 import 'package:pay_me/Modules/Beneficiary/model/beneficiary_model.dart';
 
 class BenefeciaryCard extends StatelessWidget {
@@ -88,9 +89,7 @@ class SubmitButton extends StatelessWidget {
         width: width,
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
         decoration: BoxDecoration(
-          color: isDisabled == true
-              ? const Color(0xffD3D3D3)
-              : const Color(0xff1F3A93),
+          color: isDisabled == true ? AppColors.grey : AppColors.primary,
           borderRadius: BorderRadius.circular(18.0),
           boxShadow: const [
             BoxShadow(
