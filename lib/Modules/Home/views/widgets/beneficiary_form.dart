@@ -89,7 +89,7 @@ class BenefeciaryFormState extends State<BenefeciaryForm> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 50.0),
+                const SizedBox(height: 35.0),
                 Center(
                     child: SubmitButton(
                   text: 'Add',

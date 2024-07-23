@@ -27,3 +27,5 @@ ios/Flutter/Debug.xcconfig
 ios/Flutter/Release.xcconfig
 windows/flutter/generated_plugins.cmake
 windows/flutter/generated_plugin_registrant.cc
+linux/CMakeLists.txt
+.dart_tool/extension_discovery/vs_code.json

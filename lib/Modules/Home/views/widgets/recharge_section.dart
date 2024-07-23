@@ -25,7 +25,7 @@ class RechargeSection extends StatelessWidget {
                   const Center(
                     child: Text('No beneficiaries found'),
                   ),
-                if (bloc.state.beneficiaryList != null ||
+                if (bloc.state.beneficiaryList != null &&
                     bloc.state.beneficiaryList!.isNotEmpty)
                   SizedBox(
                     height: 130,
