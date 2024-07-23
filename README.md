@@ -2,7 +2,8 @@
  Payement system demo
 # Download apk: 
 
-- https://api.codemagic.io/artifacts/c0e7ff01-36f0-4102-9f19-638dd36ea57c/8015a178-b306-485f-ac8a-a6c91cd4cb6c/app-debug.apk
+- https://api.codemagic.io/artifacts/.eJwVwclygjAAANB_8c6MMAT00EPQskqYWFIsl4xalCUJBhO2r-_0vc0T_vO4mC35wIrg1S_tefwcoYQhU1HqUEC0PkDj3eV3kqiyaukNRAkbuMF_Szp0l6KQWT4EpoGtk9uPTi-wRkxay4-5jQn9PobuuZ6-UOD32wRk6EASrZR9ch_UTV-LshRInTRH1JJDPwXYppG43ukVz56ZdaRgOtmNVVz2N2nu9_QZc3zYuVqotcZHlLdF2NReW65evcSqAxxUAo0shtG5aWax4NclsA2fvcOwYIhj1cLpY_MHevZVQQ.g5DzL2-PWlw47j3ZHB0KoT0zZL0
+  
 - https://drive.google.com/file/d/11nsDrNDe8JdP-bTrbgXUoZ6DAYOAAqZA/view?usp=sharing
 
  a demo app for payment syetme between user and beneficiaries to recharge phone credits.
