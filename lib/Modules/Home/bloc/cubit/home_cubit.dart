@@ -12,8 +12,9 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   final UserRepository userRepository;
   final BeneficiaryRepository beneficiaryRepository;
+  final String userId;
 
-  HomeCubit(this.userRepository, this.beneficiaryRepository)
+  HomeCubit(this.userRepository, this.beneficiaryRepository, this.userId)
       : super(const HomeState()) {
     getUser();
   }
@@ -39,7 +40,7 @@ class HomeCubit extends Cubit<HomeState> {
   getUser() async {
     try {
       emit(const HomeState(isLoading: true));
-      userRepository.getUser().then((user) async {
+      userRepository.getUser(userId).then((user) async {
         emit(state.copyWith(
           user: user,
           isLoading: false,

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pay_me/Modules/Home/views/screens/home_page.dart';
+import 'package:pay_me/Modules/User/views/pages/login_page.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -20,7 +20,7 @@ class LandingPageState extends State<LandingPage> {
         () => Navigator.push(
               context,
               PageRouteBuilder(
-                pageBuilder: (c, a1, a2) => const HomePage(),
+                pageBuilder: (c, a1, a2) => const LoginPage(),
                 transitionsBuilder: (c, anim, a2, child) =>
                     FadeTransition(opacity: anim, child: child),
                 transitionDuration: const Duration(milliseconds: 800),

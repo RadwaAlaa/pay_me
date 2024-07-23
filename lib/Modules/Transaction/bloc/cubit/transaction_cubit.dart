@@ -28,7 +28,8 @@ class TransactionCubit extends Cubit<TransactionState> {
 
       var allTransactions =
           await transactionRepository.getUserTransactionsByUserId(user.id!);
-      if (checkLimit(allTransactions, beneficiary) == true) {
+      if (checkLimit(allTransactions, beneficiary, user.isVerified ?? false) ==
+          true) {
         await transactionRepository.createTransaction(TransactionModel(
             amount: state.selectedAmount!,
             benefeciaryId: beneficiary.id,
@@ -53,12 +54,17 @@ class TransactionCubit extends Cubit<TransactionState> {
     }
   }
 
-  bool checkLimit(List<TransactionModel> list, BeneficiaryModel beneficiary) {
+  bool checkLimit(List<TransactionModel> list, BeneficiaryModel beneficiary,
+      bool isUserVerified) {
     var totalMonthlyTransactions = list
         .where((e) =>
             e.createdAt?.month == DateTime.now().month &&
             e.createdAt?.year == DateTime.now().year)
         .toList();
+    if (totalMonthlyTransactions.isEmpty) {
+      return true;
+    }
+
     var totalMonthlyLimit = totalMonthlyTransactions
         .map((transaction) => transaction.amount)
         .toList()
@@ -69,10 +75,15 @@ class TransactionCubit extends Cubit<TransactionState> {
           .toList()
           .map((element) => element.amount)
           .toList();
-      if (beneficiarytransactions.reduce((a, b) => a + b) < 500) {
-        return true;
+      if (isUserVerified) {
+        if (beneficiarytransactions.reduce((a, b) => a + b) < 500) {
+          return true;
+        } else if (beneficiarytransactions.reduce((a, b) => a + b) < 1000) {
+          return true;
+        }
       }
     }
+
     return false;
   }
 }

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pay_me/Core/app_colors.dart';
-import 'package:pay_me/Modules/Beneficiary/repository/beneficiary_repository.dart';
 import 'package:pay_me/Modules/Home/bloc/cubit/home_cubit.dart';
 import 'package:pay_me/Modules/Home/views/widgets/balance_section.dart';
 import 'package:pay_me/Modules/Home/views/widgets/history_section.dart';
 import 'package:pay_me/Modules/Home/views/widgets/name_section.dart';
 import 'package:pay_me/Modules/Home/views/widgets/recharge_section.dart';
 import 'package:pay_me/Modules/Home/views/widgets/toggle_section.dart';
-import 'package:pay_me/Modules/User/repository/user_repository.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,45 +23,40 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) =>
-            HomeCubit(const UserRepository(), BeneficiaryRepository()),
-        child: Scaffold(
-            backgroundColor: AppColors.white,
-            body: SafeArea(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BlocConsumer<HomeCubit, HomeState>(
-                        listener: (context, state) {
-                      if (state.error != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(state.error ?? 'Error!'),
-                          ),
-                        );
-                      }
-                    }, builder: (context, state) {
-                      var bloc = BlocProvider.of<HomeCubit>(context);
-                      if (state.isLoading == true) {
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 80.0),
-                          child: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
-                      }
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          NameSection(user: state.user!),
-                          BalanceSection(balance: state.user!.balance),
-                          BeneficiariesSection(bloc: bloc),
-                        ],
-                      );
-                    })
-                  ]),
-            )));
+    return Scaffold(
+        backgroundColor: AppColors.white,
+        body: SafeArea(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
+              if (state.error != null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.error ?? 'Error!'),
+                  ),
+                );
+              }
+            }, builder: (context, state) {
+              var bloc = BlocProvider.of<HomeCubit>(context);
+              if (state.isLoading == true) {
+                return const Padding(
+                  padding: EdgeInsets.only(top: 80.0),
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  NameSection(user: state.user!),
+                  BalanceSection(balance: state.user!.balance),
+                  BeneficiariesSection(bloc: bloc),
+                ],
+              );
+            })
+          ]),
+        ));
   }
 }
 

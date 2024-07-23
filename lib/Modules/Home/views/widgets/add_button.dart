@@ -39,13 +39,20 @@ class AddNewButton extends StatelessWidget {
         },
         child: const Padding(
           padding: EdgeInsets.all(10.0),
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
                 Icons.add_circle,
                 size: 40,
+                color: AppColors.primary,
               ),
+              Text('Add new',
+                  style: TextStyle(
+                      color: AppColors.darkGrey,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold))
             ],
           ),
         ));

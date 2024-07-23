@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pay_me/Core/firestore_service.dart';
 import 'package:pay_me/Modules/User/model/user_model.dart';
 import 'package:pay_me/Modules/User/repository/i_user_repository.dart';
@@ -7,11 +6,11 @@ class UserRepository implements IUserRepository {
   const UserRepository();
 
   @override
-  Future<UserModel> getUser() async {
-    var db = FirebaseFirestore.instance;
-    // var response = await NetworkClient.request('user');
-    var result = await db.collection('users').get();
-    var user = UserModel.fromJson(result.docs.first.data());
+  Future<UserModel> getUser(String id) async {
+    var fireStoreService = FirestoreService();
+    var result = await fireStoreService.getCollection('users');
+    var user = UserModel.fromJson(
+        result.docs.toList().where((e) => e.data()['id'] == id).first.data());
     user.documentId = result.docs.first.id;
     return user;
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_me/Core/app_colors.dart';
 import 'package:pay_me/Modules/Beneficiary/model/beneficiary_model.dart';
 import 'package:pay_me/Modules/Home/views/widgets/benefeciary_card.dart';
 
@@ -43,7 +44,7 @@ class BenefeciaryFormState extends State<BenefeciaryForm> {
           const Text(
             'Add new benefeciary',
             style: TextStyle(
-                color: Color(0xff3A7BD5),
+                color: AppColors.secondary,
                 fontSize: 18,
                 fontWeight: FontWeight.w700),
           ),
@@ -92,6 +93,7 @@ class BenefeciaryFormState extends State<BenefeciaryForm> {
                   text: 'Add',
                   height: 40,
                   width: 100,
+                  fontsize: 16,
                   onTap: () {
                     var newBen = BeneficiaryModel(
                       id: DateTime.now().toString(),
