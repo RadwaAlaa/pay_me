@@ -5,6 +5,7 @@ import 'package:pay_me/Modules/Beneficiary/model/beneficiary_model.dart';
 import 'package:pay_me/Modules/Beneficiary/repository/beneficiary_repository.dart';
 import 'package:pay_me/Modules/Transaction/bloc/cubit/transaction_cubit.dart';
 import 'package:pay_me/Modules/Transaction/repository/transaction_repository.dart';
+import 'package:pay_me/Modules/User/model/user_model.dart';
 import 'package:pay_me/Modules/User/repository/user_repository.dart';
 
 void main() async {

@@ -5,12 +5,14 @@
 
 
 
-App Journes :
+App journies :
 
     - Login page  
     available test users: 
     verified : ra@gmail.com - 123456
     unverified : en@gmail.com - 123456
+
+    authenticatiin is done through firebase authenticate by email & password.
 
     - home page: 
      . retrieve user object 
@@ -27,6 +29,8 @@ App Journes :
 Project Structure:
 
  the app is built with Flutter using Bloc state management with Cubit implementation.
+
+ - data management are done using Firebase firestore.
 
  the app has modules which represent the main features of the app which are :
  - Login 
@@ -48,24 +52,4 @@ Project Structure:
 
 
 
-    App Journes :
-
-    - Login page  
-    available test users: 
-    verified : ra@gmail.com - 123456
-    unverified : en@gmail.com - 123456
-
-    - home page: 
-     . retrieve user object 
-     . retrieve user's beneficiaries list if exist.
-     . add new beneficiary feature.
-     . list history of all transactions 
-
-
-     - Top up page: 
-      . user can select from the available amounts to recharge the beneficiary.
-
-
-
-
-
+     
