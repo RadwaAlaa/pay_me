@@ -149,6 +149,7 @@ class TopUpPageState extends State<TopUpPage> {
                                     showAlert(context, "Successful",
                                         "Payment was successful", true);
                                   } else {
+                                    // ignore: use_build_context_synchronously
                                     showAlert(context, "Failed",
                                         state.error ?? 'Error occured', false);
                                   }
