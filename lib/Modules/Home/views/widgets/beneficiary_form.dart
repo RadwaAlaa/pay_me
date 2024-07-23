@@ -38,7 +38,7 @@ class BenefeciaryFormState extends State<BenefeciaryForm> {
           ],
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        height: MediaQuery.of(context).size.height * 0.4,
+        height: MediaQuery.of(context).size.height * 1,
         width: MediaQuery.of(context).size.width,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Text(
@@ -55,6 +55,7 @@ class BenefeciaryFormState extends State<BenefeciaryForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 TextFormField(
+                  autofocus: true,
                   controller: _nameController,
                   decoration: InputDecoration(
                     labelText: 'Name',
@@ -74,6 +75,7 @@ class BenefeciaryFormState extends State<BenefeciaryForm> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   controller: _phoneController,
+                  keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     labelText: 'Phone',
                     border: OutlineInputBorder(

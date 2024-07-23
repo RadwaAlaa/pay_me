@@ -30,9 +30,10 @@ class TransactionCubit extends Cubit<TransactionState> {
           await transactionRepository.getUserTransactionsByUserId(user.id!);
       if (checkLimit(allTransactions, beneficiary, user.isVerified ?? false) ==
           true) {
+        await userRepository.updateBalance(state.selectedAmount ?? 0, user);
         await transactionRepository.createTransaction(TransactionModel(
             amount: state.selectedAmount!,
-            benefeciaryId: beneficiary.id,
+            beneficiaryId: beneficiary.id,
             beneficiaryName: beneficiary.name,
             userId: user.id,
             createdAt: DateTime.now(),
@@ -56,6 +57,9 @@ class TransactionCubit extends Cubit<TransactionState> {
 
   bool checkLimit(List<TransactionModel> list, BeneficiaryModel beneficiary,
       bool isUserVerified) {
+    if (list.isEmpty) {
+      return true;
+    }
     var totalMonthlyTransactions = list
         .where((e) =>
             e.createdAt?.month == DateTime.now().month &&
@@ -71,19 +75,34 @@ class TransactionCubit extends Cubit<TransactionState> {
         .reduce((a, b) => a + b);
     if (totalMonthlyLimit < 3000) {
       var beneficiarytransactions = totalMonthlyTransactions
-          .where((e) => e.benefeciaryId == beneficiary.id)
-          .toList()
-          .map((element) => element.amount)
+          .where((e) => e.beneficiaryId == beneficiary.id)
           .toList();
+      if (beneficiarytransactions.isEmpty) {
+        return true;
+      }
+
       if (isUserVerified) {
-        if (beneficiarytransactions.reduce((a, b) => a + b) < 500) {
+        if (beneficiarytransactions
+                .map((element) => element.amount)
+                .toList()
+                .reduce((a, b) => a + b) <
+            500) {
           return true;
-        } else if (beneficiarytransactions.reduce((a, b) => a + b) < 1000) {
+        } else {
+          return false;
+        }
+      } else {
+        if (beneficiarytransactions
+                .map((element) => element.amount)
+                .toList()
+                .reduce((a, b) => a + b) <
+            1000) {
           return true;
+        } else {
+          return false;
         }
       }
     }
-
     return false;
   }
 }

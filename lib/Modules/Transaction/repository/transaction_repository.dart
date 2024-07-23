@@ -22,7 +22,7 @@ class TransactionRepository implements ITransactionRepository {
     List<TransactionModel> list = [];
     for (var doc in result.docs) {
       var model = TransactionModel.fromJson(doc);
-      if (model.benefeciaryId == beneficiaryId) {
+      if (model.beneficiaryId == beneficiaryId) {
         list.add(TransactionModel.fromJson(doc));
       }
     }

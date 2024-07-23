@@ -19,20 +19,22 @@ class NameSection extends StatelessWidget {
         children: [
           Text("${user.name}",
               style: const TextStyle(
-                  fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w700,
                   fontSize: 24,
                   color: AppColors.primary)),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(user.isVerified == true ? "Verified" : "Not Verified",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 18,
-                      color: AppColors.secondary)),
+              Text(user.isVerified == true ? "Verified " : "Not Verified ",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                    color: user.isVerified == true
+                        ? AppColors.secondary
+                        : AppColors.grey,
+                  )),
               Icon(
-                Icons.verified,
+                Icons.verified_user,
                 color: user.isVerified == true
                     ? AppColors.secondary
                     : AppColors.grey,

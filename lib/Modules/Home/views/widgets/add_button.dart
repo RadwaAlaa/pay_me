@@ -24,6 +24,7 @@ class AddNewButton extends StatelessWidget {
             );
           } else {
             showModalBottomSheet(
+              scrollControlDisabledMaxHeightRatio: 0.7,
               backgroundColor: AppColors.white,
               context: context,
               builder: (context) {

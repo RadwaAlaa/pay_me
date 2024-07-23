@@ -27,7 +27,15 @@ class TopUpPageState extends State<TopUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<double> rechargeAmounts = [5, 10, 20, 30, 50, 75, 100];
+    final List<double> rechargeAmounts = [
+      5,
+      10,
+      20,
+      30,
+      50,
+      75,
+      100,
+    ];
 
     return BlocProvider(
         create: (context) => TransactionCubit(
@@ -40,6 +48,7 @@ class TopUpPageState extends State<TopUpPage> {
               backgroundColor: AppColors.primary,
               shadowColor: Colors.black,
               automaticallyImplyLeading: true,
+              foregroundColor: AppColors.white,
               title: const Text('Top up',
                   style: TextStyle(
                       fontStyle: FontStyle.italic,
@@ -90,6 +99,7 @@ class TopUpPageState extends State<TopUpPage> {
                                             rechargeAmounts[index]);
                                   },
                                   style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.all(4.0),
                                     backgroundColor: rechargeAmounts[index] ==
                                             state.selectedAmount
                                         ? AppColors.primary
@@ -138,6 +148,9 @@ class TopUpPageState extends State<TopUpPage> {
                                     // ignore: use_build_context_synchronously
                                     showAlert(context, "Successful",
                                         "Payment was successful", true);
+                                  } else {
+                                    showAlert(context, "Failed",
+                                        state.error ?? 'Error occured', false);
                                   }
                                 }
                               }),

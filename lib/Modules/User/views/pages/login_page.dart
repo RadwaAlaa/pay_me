@@ -31,26 +31,9 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        body:
-
-            //  Container(
-            //     decoration: const BoxDecoration(
-            //       borderRadius: BorderRadius.all(Radius.circular(20)),
-            //       color: Colors.white,
-            //       boxShadow: [
-            //         BoxShadow(
-            //           color: Colors.black26,
-            //       blurRadius: 8.0,
-            //       offset: Offset(0, 4),
-            //     ),
-            //   ],
-            // ),
-            // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            // height: MediaQuery.of(context).size.height * 0.4,
-            // width: MediaQuery.of(context).size.width,
-            // child:
-            SafeArea(
+        body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
@@ -58,7 +41,7 @@ class LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 60.0, bottom: 50),
+                    padding: const EdgeInsets.only(top: 40.0, bottom: 40),
                     child: Image.asset(
                       'assets/1024.png',
                       height: 150,
@@ -109,7 +92,7 @@ class LoginPageState extends State<LoginPage> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 50.0),
+                        const SizedBox(height: 30.0),
                         Center(
                             child: SubmitButton(
                           text: 'Login',

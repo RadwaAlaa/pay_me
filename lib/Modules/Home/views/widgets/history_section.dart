@@ -20,7 +20,7 @@ class HistorySection extends StatelessWidget {
                 child: Text('No transactions found'),
               )
             : SizedBox(
-                height: 420,
+                height: 400,
                 child: ListView.builder(
                   padding: const EdgeInsets.only(top: 20),
                   itemCount: bloc.state.transactionList!.length,
@@ -55,19 +55,24 @@ class HistorySection extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 4.0),
-                          Text(
-                            '${transaction.amount.toStringAsFixed(2)} AED',
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                              color: AppColors.darkGrey,
-                            ),
-                          ),
-                          Text(
-                            '${transaction.createdAt!.day}/${transaction.createdAt!.month}/${transaction.createdAt!.year}',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.grey[600],
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '${transaction.amount.toStringAsFixed(2)} AED',
+                                style: const TextStyle(
+                                  fontSize: 16.0,
+                                  color: AppColors.darkGrey,
+                                ),
+                              ),
+                              Text(
+                                '${transaction.createdAt!.day}/${transaction.createdAt!.month}/${transaction.createdAt!.year}',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

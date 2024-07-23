@@ -31,7 +31,7 @@ class BenefeciaryCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(children: [
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
             beneficiary.name!,
             style: const TextStyle(
@@ -44,10 +44,12 @@ class BenefeciaryCard extends StatelessWidget {
             style: const TextStyle(
                 fontWeight: FontWeight.w300,
                 color: Color(0xff333333),
-                fontSize: 18),
+                fontSize: 16),
           ),
           SubmitButton(
             text: 'Recharge now',
+            height: 25,
+            fontsize: 13,
             onTap: () {
               onTap();
             },
@@ -102,7 +104,7 @@ class SubmitButton extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-              color: Colors.white, // White Text
+              color: Colors.white,
               fontSize: fontsize ?? 12.0,
               fontWeight: FontWeight.w700),
         ),

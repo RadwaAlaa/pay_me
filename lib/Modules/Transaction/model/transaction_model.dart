@@ -1,6 +1,6 @@
 class TransactionModel {
   final String? id;
-  final String? benefeciaryId;
+  final String? beneficiaryId;
   final String? beneficiaryName;
   final String? userId;
   final DateTime? createdAt;
@@ -8,7 +8,7 @@ class TransactionModel {
 
   TransactionModel(
       {this.id,
-      required this.benefeciaryId,
+      required this.beneficiaryId,
       this.beneficiaryName,
       this.userId,
       this.createdAt,
@@ -17,7 +17,7 @@ class TransactionModel {
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
     return TransactionModel(
       id: json['id'] ?? '',
-      benefeciaryId: json['beneficiary_id'] ?? '',
+      beneficiaryId: json['beneficiary_id'] ?? '',
       userId: json['user_id'] ?? '',
       beneficiaryName: json['beneficiary_name'] ?? '',
       createdAt: json['created_at'] != null
@@ -29,7 +29,7 @@ class TransactionModel {
   static Map<String, dynamic> toJson(TransactionModel transaction) {
     return {
       'id': transaction.id,
-      'beneficiary_id': transaction.benefeciaryId,
+      'beneficiary_id': transaction.beneficiaryId,
       'user_id': transaction.userId,
       'created_at': transaction.createdAt,
       'amount': transaction.amount,
